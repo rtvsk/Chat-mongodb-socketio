@@ -1,0 +1,23 @@
+{
+  "name": "chat-mongodb-socketio",
+  "version": "1.0.0",
+  "description": "Simple chat app @ MongoDB / Socket.io",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Reutovsky/Chat-mongodb-socketio.git"
+  },
+  "author": "Dmitry Ivanov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Reutovsky/Chat-mongodb-socketio/issues"
+  },
+  "homepage": "https://github.com/Reutovsky/Chat-mongodb-socketio#readme",
+  "dependencies": {
+    "mongodb": "^3.1.10",
+    "socket.io": "^2.2.0"
+  }
+}
