@@ -31,8 +31,53 @@
     if(socket !== undefined){
         console.log('Connected to socket...');
 
+        // Handle output
         socket.on('output', function(data){
-            console.log(data);
+            // console.log(data);
+            if(data.length){
+                for(var x = 0; x < data.length;x++){
+                    // Build out message div
+                    var message = document.createElement('div');
+                    message.setAttribute('class', 'chat-message');
+                    message.textContent = data[x].name + ": " + data[x].message;
+                    messages.appendChild(message);
+                    messages.insertBefore(message, messages.firstChild);
+                }
+            }
+        });
+
+        // Get status from Server
+        socket.on('status', function(data){
+            // get message status
+            setStatus((typeof data === 'object')? data.message : data);
+
+            // if status is clear
+            if(data.clear){
+                textarea.value = '';
+            }
+        });
+
+        // Handle Input
+        textarea.addEventListener('keydown', function(event){
+            if(event.which === 13 && event.shiftKey == false){
+                // Emit to server input
+                socket.emit('input', {
+                    name: username.value,
+                    message: textarea.value
+                });
+
+                event.preventDefault();
+            }
+        });
+
+        // Handle chat clear
+        clearButton.addEventListener('click', function(){
+            socket.emit('clear');
+        });
+
+        // Clear message
+        socket.on('cleared', function(){
+            messages.textContent = '';
         });
     }
 })();
